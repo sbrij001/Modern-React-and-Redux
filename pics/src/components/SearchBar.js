@@ -1,27 +1,29 @@
 import React from 'react';
 
 class SearchBar extends React.Component{
-  state = {term:""}
+  state={searchItems: ""}
 
-  onFormSubmit = (e) => {
-    e.preventDefault();
-    this.props.onSearchSubmit(this.state.term)
+  onInputSearch = (event) => {
+    this.setState({ searchItems: event.target.value })
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    this.props.onSearchSubmit(this.state.searchItems)
   }
 
   render(){
     return(
       <div className="ui segment">
-        <form className="ui form" onSubmit={this.onFormSubmit}>
-          <div className="field">
-            <label>Image Search</label>
-            <input
-              type="text"
-              value={this.state.term}
-              onChange={(e) => {this.setState({ term: e.target.value })}}/>
-          </div>
+        <label>Search</label>
+        <form onSubmit={this.onSubmit}>
+          <input
+            type="text"
+            value={this.state.searchItems}
+            onChange={this.onInputSearch}
+          />
         </form>
       </div>
-
     )
   }
 }
